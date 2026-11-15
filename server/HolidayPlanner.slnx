@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="BE.Api.Tests/BE.Api.Tests.csproj" />
+  <Project Path="BE.Api/BE.Api.csproj" />
+  <Project Path="BE.Domain.Tests/BE.Domain.Tests.csproj" />
+  <Project Path="BE.Domain/BE.Domain.csproj" />
+  <Project Path="BE.Infrastructure/BE.Infrastructure.csproj" />
+</Solution>
