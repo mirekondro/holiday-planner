@@ -4,8 +4,8 @@ set -euo pipefail
 
 REPO="mirekondro/holiday-planner"
 ME="mirekondro"    
-MATE="sasahrad"                
-PROJECT="holiday-planner"           
+MATE="${MATE-sasahrad}"
+PROJECT="${PROJECT-Holiday Planner}"
 
 DRY_RUN="${DRY_RUN:-0}"
 FORCE="${FORCE:-0}"
