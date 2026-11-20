@@ -9,6 +9,9 @@
 ## Testing strategy
 
 ## GitHub Project progression
+### Start (17 Nov 2026)
+![Board at the start](docs/board/First Kanban screenshot.png)
+
 
 ## Sustainability (Lighthouse)
 
