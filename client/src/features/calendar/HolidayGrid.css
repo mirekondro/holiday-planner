@@ -1,0 +1,102 @@
+.holiday-grid-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.holiday-grid {
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 100%;
+}
+
+.holiday-grid th,
+.holiday-grid td {
+  border: 1px solid var(--border);
+  text-align: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0;
+}
+
+.holiday-grid thead th {
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 4px 0;
+}
+
+.holiday-grid .weekday {
+  display: block;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* Name column stays visible while scrolling horizontally */
+.holiday-grid .name-col {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg);
+  text-align: left;
+  padding: 0 12px;
+  white-space: nowrap;
+  min-width: 180px;
+  font-weight: 500;
+}
+
+.holiday-grid .off {
+  background: var(--off-bg);
+}
+
+.holiday-grid thead .today {
+  background: var(--accent);
+  color: #fff;
+}
+
+.holiday-grid .absence {
+  font-weight: 700;
+  color: #fff;
+}
+
+.holiday-grid .absence.weeks1to5 {
+  background: var(--holiday);
+}
+
+.holiday-grid .absence.week6 {
+  background: var(--week6);
+}
+
+.holiday-grid .absence.pending {
+  background: repeating-linear-gradient(45deg, var(--pending-a), var(--pending-a) 4px, var(--pending-b) 4px, var(--pending-b) 8px);
+  color: var(--text-h);
+}
+
+.holiday-grid tfoot th,
+.holiday-grid tfoot td {
+  font-weight: 600;
+  border-top: 2px solid var(--border);
+}
+
+.holiday-grid tfoot .has-absent {
+  color: var(--accent);
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  font-size: 14px;
+}
+
+.calendar-legend .swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  border: 1px solid var(--border);
+}
