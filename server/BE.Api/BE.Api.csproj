@@ -4,16 +4,17 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>ac1ece99-6ad2-457e-b5bc-3b6b4bd16edd</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
-    <PackageReference Include="NSwag.AspNetCore" Version="14.8.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BE.Domain\BE.Domain.csproj" />
     <ProjectReference Include="..\BE.Infrastructure\BE.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="linq2db.Extensions" Version="6.5.1" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.8.0" />
   </ItemGroup>
 
 </Project>
