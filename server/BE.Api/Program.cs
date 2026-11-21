@@ -11,9 +11,12 @@ DatabaseMigrator.Migrate(cs);
 
 builder.Services.AddLinqToDBContext<AppDataConnection>((_, options) => options.UsePostgreSQL(cs));
 builder.Services.AddControllers();
+builder.Services.AddOpenApiDocument(c => c.Title = "Holiday Planner API");
 
 var app = builder.Build();
 
+app.UseOpenApi();
+app.UseSwaggerUi();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
