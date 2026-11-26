@@ -47,8 +47,16 @@
   font-weight: 600;
 }
 
-.app-logout {
+.app-user {
   margin-left: auto;
+  font-size: 14px;
+}
+
+.app-logout {
+  font: inherit;
+  background: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
 }
 
 .app-main {
