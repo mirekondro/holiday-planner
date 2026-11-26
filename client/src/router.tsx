@@ -1,4 +1,6 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
+import { pageRoles } from './auth/access.ts'
+import RequireAuth, { HomeRedirect } from './auth/RequireAuth.tsx'
 import AppLayout from './layouts/AppLayout.tsx'
 import AdminPage from './pages/AdminPage.tsx'
 import ApprovalsPage from './pages/ApprovalsPage.tsx'
@@ -15,16 +17,42 @@ export const router = createBrowserRouter([
   { path: paths.login, element: <LoginPage /> },
   {
     path: '/',
-    element: <AppLayout />,
+    // Everything inside the layout needs a logged-in user; some pages also need a specific role.
+    element: (
+      <RequireAuth>
+        <AppLayout />
+      </RequireAuth>
+    ),
     errorElement: <NotFoundPage />,
     children: [
-      { index: true, element: <Navigate to={paths.myHoliday} replace /> },
-      { path: 'my-holiday', element: <MyHolidayPage /> },
+      { index: true, element: <HomeRedirect /> },
+      {
+        path: 'my-holiday',
+        element: (
+          <RequireAuth roles={pageRoles.myHoliday}>
+            <MyHolidayPage />
+          </RequireAuth>
+        ),
+      },
       { path: 'calendar', element: <CalendarPage /> },
-      { path: 'approvals', element: <ApprovalsPage /> },
       { path: 'employees', element: <EmployeesPage /> },
       { path: 'employees/:employeeId', element: <EmployeeDetailPage /> },
-      { path: 'admin', element: <AdminPage /> },
+      {
+        path: 'approvals',
+        element: (
+          <RequireAuth roles={pageRoles.approvals}>
+            <ApprovalsPage />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: 'admin',
+        element: (
+          <RequireAuth roles={pageRoles.admin}>
+            <AdminPage />
+          </RequireAuth>
+        ),
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
