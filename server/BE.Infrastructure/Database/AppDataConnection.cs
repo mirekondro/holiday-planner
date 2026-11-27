@@ -8,4 +8,6 @@ public class AppDataConnection(DataOptions<AppDataConnection> options) : DataCon
 {
     public ITable<EmployeeEntity> Employees => this.GetTable<EmployeeEntity>();
     public ITable<AppUserEntity> Users => this.GetTable<AppUserEntity>();
+    public ITable<WorkScheduleEntity> WorkSchedules => this.GetTable<WorkScheduleEntity>();
+    public ITable<WorkScheduleDayEntity> WorkScheduleDays => this.GetTable<WorkScheduleDayEntity>();
 }
