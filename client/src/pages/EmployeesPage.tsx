@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api, isHttpError } from '../api/client.ts'
-import type { EmployeeEntity } from '../api/generated/Api.ts'
+import type { EmployeeDto } from '../api/generated/Api.ts'
 import { paths } from '../paths.ts'
 
 type State =
   | { status: 'loading' }
-  | { status: 'loaded'; employees: EmployeeEntity[] }
+  | { status: 'loaded'; employees: EmployeeDto[] }
   | { status: 'error'; message: string }
 
 const dateFormat = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' })

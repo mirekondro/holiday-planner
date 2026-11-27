@@ -43,7 +43,7 @@ export interface LoginRequest {
   password?: string;
 }
 
-export interface EmployeeEntity {
+export interface EmployeeDto {
   /** @format guid */
   id?: string;
   firstName?: string;
@@ -53,6 +53,61 @@ export interface EmployeeEntity {
   employmentStart?: string;
   /** @format date */
   employmentEnd?: string | null;
+}
+
+export type ValidationProblemDetails = HttpValidationProblemDetails & {
+  errors?: Record<string, string[]>;
+  [key: string]: any;
+};
+
+export type HttpValidationProblemDetails = ProblemDetails & {
+  errors?: Record<string, string[]>;
+  [key: string]: any;
+};
+
+export interface CreateEmployeeRequest {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  /** @format date */
+  employmentStart?: string | null;
+  schedule?: ScheduleDayDto[];
+}
+
+export interface ScheduleDayDto {
+  /** @format int32 */
+  weekday?: number;
+  start?: string | null;
+  end?: string | null;
+}
+
+export interface UpdateEmployeeRequest {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+}
+
+export interface DeactivateEmployeeRequest {
+  /** @format date */
+  employmentEnd?: string | null;
+}
+
+export interface WorkSchedulePeriodDto {
+  /** @format guid */
+  id?: string;
+  /** @format date */
+  validFrom?: string;
+  /** @format date */
+  validTo?: string | null;
+  /** @format decimal */
+  weeklyHours?: number;
+  days?: ScheduleDayDto[];
+}
+
+export interface AddWorkScheduleRequest {
+  /** @format date */
+  validFrom?: string | null;
+  days?: ScheduleDayDto[];
 }
 
 export interface UserDto {
@@ -65,16 +120,6 @@ export interface UserDto {
   /** @format date-time */
   createdAt?: string;
 }
-
-export type ValidationProblemDetails = HttpValidationProblemDetails & {
-  errors?: Record<string, string[]>;
-  [key: string]: any;
-};
-
-export type HttpValidationProblemDetails = ProblemDetails & {
-  errors?: Record<string, string[]>;
-  [key: string]: any;
-};
 
 export interface CreateUserRequest {
   email?: string;
@@ -388,9 +433,133 @@ export class Api<
      * @request GET:/api/Employees
      */
     employeesGetAll: (params: RequestParams = {}) =>
-      this.request<EmployeeEntity[], any>({
+      this.request<EmployeeDto[], any>({
         path: `/api/Employees`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Employees
+     * @name EmployeesCreate
+     * @request POST:/api/Employees
+     * @secure
+     */
+    employeesCreate: (
+      data: CreateEmployeeRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<EmployeeDto, ValidationProblemDetails | ProblemDetails>({
+        path: `/api/Employees`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: "application/json",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Employees
+     * @name EmployeesGet
+     * @request GET:/api/Employees/{id}
+     */
+    employeesGet: (id: string, params: RequestParams = {}) =>
+      this.request<EmployeeDto, ProblemDetails>({
+        path: `/api/Employees/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Employees
+     * @name EmployeesUpdate
+     * @request PUT:/api/Employees/{id}
+     * @secure
+     */
+    employeesUpdate: (
+      id: string,
+      data: UpdateEmployeeRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<EmployeeDto, ValidationProblemDetails | ProblemDetails>({
+        path: `/api/Employees/${id}`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        type: "application/json",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Employees
+     * @name EmployeesDeactivate
+     * @request POST:/api/Employees/{id}/deactivate
+     * @secure
+     */
+    employeesDeactivate: (
+      id: string,
+      data: DeactivateEmployeeRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<EmployeeDto, ValidationProblemDetails | ProblemDetails>({
+        path: `/api/Employees/${id}/deactivate`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: "application/json",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Employees
+     * @name EmployeesGetSchedules
+     * @request GET:/api/Employees/{id}/schedules
+     */
+    employeesGetSchedules: (id: string, params: RequestParams = {}) =>
+      this.request<WorkSchedulePeriodDto[], ProblemDetails>({
+        path: `/api/Employees/${id}/schedules`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Employees
+     * @name EmployeesAddSchedule
+     * @request POST:/api/Employees/{id}/schedules
+     * @secure
+     */
+    employeesAddSchedule: (
+      id: string,
+      data: AddWorkScheduleRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        WorkSchedulePeriodDto[],
+        ValidationProblemDetails | ProblemDetails
+      >({
+        path: `/api/Employees/${id}/schedules`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: "application/json",
         format: "json",
         ...params,
       }),
